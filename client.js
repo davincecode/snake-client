@@ -1,30 +1,24 @@
 // establishes a connection with the game server
+const net = require("net");
+
 const connect = function () {
   const conn = net.createConnection({
-    host: "165.227.47.243", // IP address here,
-    port: "50541", // PORT, number here,
+    host: "135.23.222.131",
+    port: 50542,
+  });
+
+  conn.setEncoding("utf8"); // interpret data as text
+
+  conn.on("data", (data) => {
+    console.log("Message from client: ", data);
   });
 
   conn.on("connect", () => {
-    console.log("CONIKTED"); // code that does something when the connection is first established
+    console.log("Successfully connected to game server");
+    conn.write("Name: MEOW");
   });
 
-  // interpret incoming data as text
-  conn.setEncoding("utf8");
-
   return conn;
-};
-
-const myNumber = 42;
-const myString = "hello";
-const myFunction = () => {
-  // myFunction's code
-};
-
-module.exports = {
-  myNumber, // exports 42 as myNumber
-  myString, // exports "hello" as myString
-  myFunction, // exports myFunction
 };
 
 module.exports = connect;
